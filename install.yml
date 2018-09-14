@@ -1,7 +1,8 @@
 ---
 - name: Server install
   hosts: web
-  remote_user: root
+  remote_user: "{{ remote_user }}"
+  become: true
   tasks:
   - include_vars:
       file: vars.yml

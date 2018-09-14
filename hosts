@@ -1,5 +1,6 @@
 [web]
-new.example.org
+test.example.org
 
 [web:vars]
-user=project_user
+user=testing
+remote_user=ubuntu

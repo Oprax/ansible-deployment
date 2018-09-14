@@ -3,11 +3,11 @@ Installation & Deployment
 
 [Ansible](https://docs.ansible.com/ansible/) is use to automate installation of server and deployment.
 
-You can test this configuration with a free server (only for 2 hours) using [dply.co](https://dply.co/b/ROSJbb7w).
+You can test this configuration with a free server (only for 2 hours) using [dply.co](https://dply.co/b/ROSJbb7w). **Dply is close :'( Need an alternative**
 
 # 1. Setup
 
-On `hosts` file put server's address and check information (like username) in `vars.yml`.
+On `hosts` file put server's address with the new user's name and check information (like the domain) in `vars.yml`.
 Password is encrypted using `ansible-vault`.
 
 Put a password on a file `.vault_pass`, then you can use
@@ -15,6 +15,8 @@ Put a password on a file `.vault_pass`, then you can use
 ansible-vault encrypt_string --vault-id .vault_pass
 ```
 to encrypt a string (like a password).
+The current mysql password is `root` with `root` as vault password, **this is
+not secure for production !**
 
 **`.vault_pass` must be secret and not share in git repository (or other cloud) !!!!**
 
@@ -52,7 +54,7 @@ ansible-galaxy install carlosbuenosvinos.ansistrano-deploy carlosbuenosvinos.ans
 You can also check `.env` information in `templates/env.j2`.
 
 Ansistrano use git, so before push master on the server :
-`git remote add dist ssh://user@domain.com:/home/user/domain.com.git`
+`git remote add dist ssh://user@domain.com:/home/user/example.org.git`
 
 To deploy, run :
 ```bash
