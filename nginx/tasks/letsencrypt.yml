@@ -8,7 +8,7 @@
   args:
     creates: "/etc/nginx/tls/ticket.key"
 - name: "Letsencrypt | Create dhparam.pem"
-  command: "openssl dhparam -out /etc/nginx/tls/dhparam.pem 4096"
+  command: "openssl dhparam -dsaparam -out /etc/nginx/tls/dhparam.pem 4096"
   args:
     creates: "/etc/nginx/tls/dhparam.pem"
 - name: "Letsencrypt | Setup params.conf"
