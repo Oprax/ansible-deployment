@@ -1,3 +1,9 @@
+- name: LARAVEL | .env 1
+  vars:
+    app_key: "base64:zr7XcuNmj/tKEReLCB3yxO2c6sANBH2stIOKnmyjg7Q="
+  template:
+    src: env.j2
+    dest: "{{ ansistrano_shared_path }}/.env"
 - name: LARAVEL | Composer install
   composer:
     command: install
@@ -11,7 +17,7 @@
 - name: LARAVEL | App key generate
   command: "cat {{ ansistrano_shared_path }}/app.key"
   register: app_key
-- name: LARAVEL | .env
+- name: LARAVEL | .env 2
   template:
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
