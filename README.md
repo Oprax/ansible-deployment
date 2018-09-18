@@ -51,7 +51,7 @@ And reload SSH server : `systemctl reload ssh`
 
 Deployment use [Ansistrano](https://github.com/ansistrano/deploy) playbook. Install ansistrano with `ansible-galaxy` :
 ```bash
-ansible-galaxy install carlosbuenosvinos.ansistrano-deploy carlosbuenosvinos.ansistrano-rollback
+ansible-galaxy install ansistrano.deploy ansistrano.rollback
 ```
 You can also check `.env` information in `templates/env.j2`.
 
