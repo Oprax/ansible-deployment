@@ -4,6 +4,7 @@ nodejs_version: 8
 npm_globals: []
 redirect_domain: test.example.org
 domain: test.example.org
+ssh_public_key_file: "~/.ssh/id_rsa.pub"
 # Ansistrano
 ansistrano_deploy_to: "/home/{{ user }}/{{ domain }}"
 ansistrano_deploy_via: git
