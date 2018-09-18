@@ -1,6 +1,7 @@
 - name: LARAVEL | .env 1
   vars:
-    app_key: "base64:zr7XcuNmj/tKEReLCB3yxO2c6sANBH2stIOKnmyjg7Q="
+    app_key:
+      stdout: "base64:zr7XcuNmj/tKEReLCB3yxO2c6sANBH2stIOKnmyjg7Q="
   template:
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
