@@ -17,17 +17,6 @@
       user: "{{ user }}"
       key: "{{ lookup('file', ssh_public_key_file) }}"
       state: present
-  - name: "USER | Create {{ sudoer }}"
-    user:
-      name: "{{ sudoer }}"
-      groups:
-      - sudo
-      shell: /bin/bash
-  - name: "USER | SSH key ({{ sudoer }})"
-    authorized_key:
-      user: "{{ sudoer }}"
-      key: "{{ lookup('file', ssh_public_key_file) }}"
-      state: present
   - name: APT | Update
     apt:
       upgrade: dist

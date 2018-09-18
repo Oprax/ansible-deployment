@@ -7,6 +7,8 @@ You can test this configuration with a free server (only for 2 hours) using [dpl
 
 # 1. Setup
 
+Copy example files : `cp vars.yml.example vars.yml` and `cp hosts.example hosts`.
+
 On `hosts` file put server's address with the new user's name and check information (like the domain) in `vars.yml`.
 Password is encrypted using `ansible-vault`.
 
