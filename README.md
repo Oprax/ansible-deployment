@@ -7,9 +7,9 @@ You can test this configuration with a free server (only for 2 hours) using [dpl
 
 # 1. Setup
 
-Copy example files : `cp vars.yml.example vars.yml` and `cp hosts.example hosts`.
+Copy example files : `cp vars.example.yml vars.yml` and `cp hosts.example.ini hosts.ini`.
 
-On `hosts` file put server's address with the new user's name and check information (like the domain) in `vars.yml`.
+On `hosts.ini` file put server's address with the new user's name and check information (like the domain) in `vars.yml`.
 You can generate SSH key and use `ssh_private_key_file` variable to define path of the private key.
 Password is encrypted using `ansible-vault`.
 
@@ -27,7 +27,7 @@ not secure for production !**
 
 If setup is done, you just need to run 
 ```bash
-ansible-playbook -i hosts install.yml --vault-password-file .vault_pass
+ansible-playbook -i hosts.ini install.yml --vault-password-file .vault_pass
 ```
 
 When installation is done you can connect to the server with SSH key.
@@ -61,12 +61,12 @@ Ansistrano use git, so before push master on the server :
 
 To deploy, run :
 ```bash
-ansible-playbook -i hosts deploy.yml --vault-password-file .vault_pass
+ansible-playbook -i hosts.ini deploy.yml --vault-password-file .vault_pass
 ```
 
 # 4. Rollback
 
 To run a rollback :
 ```bash
-ansible-playbook -i hosts rollback.yml --vault-password-file .vault_pass
+ansible-playbook -i hosts.ini rollback.yml --vault-password-file .vault_pass
 ```
