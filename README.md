@@ -10,6 +10,7 @@ You can test this configuration with a free server (only for 2 hours) using [dpl
 Copy example files : `cp vars.yml.example vars.yml` and `cp hosts.example hosts`.
 
 On `hosts` file put server's address with the new user's name and check information (like the domain) in `vars.yml`.
+You can generate SSH key and use `ssh_private_key_file` variable to define path of the private key.
 Password is encrypted using `ansible-vault`.
 
 Put a password on a file `.vault_pass`, then you can use
