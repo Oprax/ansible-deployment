@@ -70,3 +70,69 @@ To run a rollback :
 ```bash
 ansible-playbook -i hosts.ini rollback.yml --vault-password-file .vault_pass
 ```
+
+# 5. CI/CD
+
+You can use this role to deploy using a CI/CD service.
+An exemple with GitLab :
+
+```yml
+.before_deploy:
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  before_script:
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo $SSH_PRIVATE_KEY | base64 -d > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-keyscan $CI_ENVIRONMENT_URL >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - echo $VARS_YML_CONTENT | base64 -d > $CI_PROJECT_DIR/ansible/vars.yml
+  - echo $HOSTS_INI_CONTENT | base64 -d > $CI_PROJECT_DIR/ansible/hosts.ini
+  - echo $VAULT_PASS_CONTENT | base64 -d > $CI_PROJECT_DIR/ansible/.vault_pass
+  - ansible-galaxy install ansistrano.deploy ansistrano.rollback
+  - cd $CI_PROJECT_DIR
+  - git config --global user.email "$GITLAB_USER_EMAIL"
+  - git config --global user.name "$GITLAB_USER_NAME"
+  - git checkout $CI_COMMIT_REF_NAME
+  - git remote add dist ssh://eatfit@${CI_ENVIRONMENT_URL}:/home/eatfit/${CI_ENVIRONMENT_URL}.git
+  - git push dist $CI_COMMIT_REF_NAME
+  script:
+  - cd $CI_PROJECT_DIR/ansible
+  - ansible-playbook -i hosts.ini deploy.yml --vault-password-file .vault_pass
+
+prod_deployment:
+  stage: deploy
+  only:
+  - master
+  image: oprax/ansible:latest
+  environment:
+    name: production
+    url: www.example.org
+  extends: .before_deploy
+
+dev_deployment:
+  stage: deploy
+  only:
+  - develop
+  image: oprax/ansible:latest
+  environment:
+    name: staging
+    url: staging.example.org
+  extends: .before_deploy
+```
+
+For this exemple I consider that you use this repository as a submodule of your main website repository, submodule path is `ansible/`.
+
+All private file are base64 encoded to avoid problem with newline for example.
+To encode a file in a shell : 
+
+```shell
+cat file | base64 | tr -d "\n" > file.b64
+```
+
+First, create a SSH key without password only for the website. Put the private key (b64 encoded) in the secret variable named `SSH_PRIVATE_KEY`.
+
+Do the same for `VARS_YML_CONTENT` (`vars.yml`), `HOSTS_INI_CONTENT` (`hosts.ini`) and `VAULT_PASS_CONTENT` (`.vault_pass`)
+
+**Don't forget to replace environment URL !**
