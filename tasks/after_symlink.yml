@@ -19,6 +19,11 @@
   shell: php artisan view:clear
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Public storage
+  shell: php artisan storage:link
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+    creates: "{{ ansistrano_release_path.stdout }}/public/storage"
 - name: LARAVEL | Migrate
   shell: php artisan migrate --force
   args:
