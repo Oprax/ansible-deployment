@@ -9,7 +9,7 @@ ssh_public_key_file: "~/.ssh/id_rsa.pub"
 ansistrano_deploy_to: "/home/{{ user }}/{{ domain }}"
 ansistrano_deploy_via: git
 ansistrano_git_repo: "{{ ansistrano_deploy_to }}.git"
-ansistrano_keep_realeases: 3
+ansistrano_keep_releases: 3
 ansistrano_shared_paths: ["public/uploads", "storage"]
 ansistrano_shared_files: [".env"]
 ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
