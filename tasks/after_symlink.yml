@@ -39,3 +39,10 @@
     path: "{{ ansistrano_shared_path }}/seeded"
     state: touch
   when: ansistrano_shared_path is defined
+- name: LARAVEL | Crontab
+  cron:
+      name: "Laravel schedule"
+      user: "{{ user }}"
+      state: present
+      job: "cd {{ ansistrano_release_path.stdout }} && php artisan schedule:run >> /dev/null 2>&1"
+  when: laravel_schedule is defined

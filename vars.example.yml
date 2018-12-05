@@ -15,6 +15,7 @@ ansistrano_shared_files: [".env"]
 ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
 ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/after_symlink.yml"
 ansistrano_allow_anonymous_stats: false
+laravel_schedule: false
 # Mysql
 mysql_db: choose_wisely
 mysql_user: choose_wisely
