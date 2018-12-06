@@ -30,9 +30,10 @@
   apt:
     name: "php{{ php_version }}-{{ db_driver }}"
 - name: PHP | Composer setup script
-  template:
-    src: composer-setup.sh.j2
-    dest: "/opt/composer-setup.sh"
+  copy:
+    src: composer-setup.sh
+    dest: /opt/composer-setup.sh
+    mode: u+rwx
   args:
     creates: /usr/local/bin/composer
 - name: PHP | Install composer
