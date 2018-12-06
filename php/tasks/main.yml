@@ -34,8 +34,6 @@
     src: "../templates/composer-setup.sh"
     dest: /opt/composer-setup.sh
     mode: u+rwx
-  args:
-    creates: /usr/local/bin/composer
 - name: PHP | Install composer
   shell: "sh /opt/composer-setup.sh"
   args:
