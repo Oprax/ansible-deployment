@@ -31,7 +31,7 @@
     name: "php{{ php_version }}-{{ db_driver }}"
 - name: PHP | Composer setup script
   copy:
-    src: composer-setup.sh
+    src: "../templates/composer-setup.sh"
     dest: /opt/composer-setup.sh
     mode: u+rwx
   args:
