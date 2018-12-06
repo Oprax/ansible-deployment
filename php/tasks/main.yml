@@ -25,18 +25,14 @@
       - "php{{ php_version }}-intl"
       - "php{{ php_version }}-curl"
       - "php{{ php_version }}-gd"
-- name: PHP | Database driver
-  when: db_driver == "pgsql"
+- name: "PHP | Database driver {{ db_driver }}"
+  when: db_driver is defined
   apt:
-    name: "php{{ php_version }}-pgsql"
-- name: PHP | Database driver
-  when: db_driver == "mysql"
-  apt:
-    name: "php{{ php_version }}-mysql"
+    name: "php{{ php_version }}-{{ db_driver }}"
 - name: PHP | Composer setup script
   template:
     src: composer-setup.sh.j2
-    dest: "/opt/"
+    dest: "/opt/composer-setup.sh"
   args:
     creates: /usr/local/bin/composer
 - name: PHP | Install composer
