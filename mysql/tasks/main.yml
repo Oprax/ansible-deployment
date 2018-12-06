@@ -9,40 +9,40 @@
   mysql_user:
     check_implicit_admin: yes 
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: "{{ db_root_pswd }}"
     user: root
     host: localhost
-    password: "{{ mysql_root_password }}"
+    password: "{{ db_root_pswd }}"
 - name: MySQL | Remove anonymous user
   mysql_user:
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: "{{ db_root_pswd }}"
     user: ""
     state: absent
 - name: MySQL | Remove test database
   mysql_db:
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: "{{ db_root_pswd }}"
     db: test
     state: absent
 - name: MySQL | Remove test database
   mysql_db:
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: "{{ db_root_pswd }}"
     db: test
     state: absent
-- name: "MySQL | Create {{ mysql_db }} database"
+- name: "MySQL | Create {{ db_name }} database"
   mysql_db:
     login_user: root
-    login_password: "{{ mysql_root_password }}"
-    db: "{{ mysql_db }}"
+    login_password: "{{ db_root_pswd }}"
+    db: "{{ db_name }}"
     state: present
-- name: "MySQL | Add {{ mysql_user }}"
+- name: "MySQL | Add {{ db_user }}"
   mysql_user:
     login_user: root
-    login_password: "{{ mysql_root_password }}"
-    user: "{{ mysql_user }}"
-    password: "{{ mysql_password }}"
+    login_password: "{{ db_root_pswd }}"
+    user: "{{ db_user }}"
+    password: "{{ db_pswd }}"
     host: localhost
-    priv: "{{ mysql_db }}.*:ALL"
+    priv: "{{ db_name }}.*:ALL"
     state: present
