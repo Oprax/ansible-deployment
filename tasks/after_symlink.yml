@@ -44,6 +44,6 @@
       name: "Laravel schedule"
       user: "{{ user }}"
       state: present
-      minute: *
+      minute: "*"
       job: "cd {{ ansistrano_release_path.stdout }} && php artisan schedule:run >> /dev/null 2>&1"
   when: laravel_schedule is defined
