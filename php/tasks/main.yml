@@ -19,17 +19,28 @@
     update_cache: yes
     name:
       - "php{{ php_version }}-fpm"
-      - "php{{ php_version }}-mysql"
       - "php{{ php_version }}-mbstring"
       - "php{{ php_version }}-xml"
       - "php{{ php_version }}-zip"
       - "php{{ php_version }}-intl"
+      - "php{{ php_version }}-curl"
+      - "php{{ php_version }}-gd"
+- name: PHP | Database driver
+  when: db_driver == "pgsql"
+  apt:
+    name: "php{{ php_version }}-pgsql"
+- name: PHP | Database driver
+  when: db_driver == "mysql"
+  apt:
+    name: "php{{ php_version }}-mysql"
+- name: PHP | Composer setup script
+  template:
+    src: composer-setup.sh.j2
+    dest: "/opt/"
+  args:
+    creates: /usr/local/bin/composer
 - name: PHP | Install composer
-  shell: |
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-    php -r "unlink('composer-setup.php');"
+  shell: "sh /opt/composer-setup.sh"
   args:
     creates: /usr/local/bin/composer
 - name: PHP | Disable errors
