@@ -39,6 +39,11 @@
     path: "{{ ansistrano_shared_path }}/seeded"
     state: touch
   when: ansistrano_shared_path is defined
+- name: LARAVEL | extra commands
+  command: "{{ item }}"
+  with_items: "{{ extra_cmd }}"
+  args:
+    chdir: "{{ ansistrano_deploy_to }}/current"
 - name: LARAVEL | Crontab
   cron:
       name: "Laravel schedule"
