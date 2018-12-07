@@ -9,8 +9,7 @@
   - name: "USER | Create {{ user }}"
     user:
       name: "{{ user }}"
-      groups:
-      - www-data
+      group: www-data
       shell: /bin/bash
   - name: "USER | SSH key ({{ user }})"
     authorized_key:
