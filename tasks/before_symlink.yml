@@ -26,8 +26,20 @@
   template:
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
-# https://stackoverflow.com/a/37266353/10324791
 - name: LARAVEL | Storage directory
+  file:
+    path: "{{ item }}"
+    mode: 0774
+    state: directory
+  with_items:
+    - "{{ ansistrano_shared_path }}/storage/app/public"
+    - "{{ ansistrano_shared_path }}/storage/framework/cache"
+    - "{{ ansistrano_shared_path }}/storage/framework/sessions"
+    - "{{ ansistrano_shared_path }}/storage/framework/testing"
+    - "{{ ansistrano_shared_path }}/storage/framework/views"
+    - "{{ ansistrano_shared_path }}/storage/logs"
+# https://stackoverflow.com/a/37266353/10324791
+- name: LARAVEL | Storage directory permissions
   shell: |
       find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
       find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
