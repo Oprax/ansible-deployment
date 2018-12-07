@@ -34,11 +34,11 @@
     include_role:
       name: tools
   - name: ROLES | MySQL
-    when: db_driver == "mysql"
+    when: database.driver == "mysql"
     include_role:
       name: mysql
   - name: ROLES | PgSQL
-    when: db_driver == "pgsql"
+    when: database.driver == "pgsql"
     include_role:
       name: pgsql
   - name: ROLES | PHP

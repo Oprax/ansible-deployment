@@ -25,10 +25,10 @@
       - "php{{ php_version }}-intl"
       - "php{{ php_version }}-curl"
       - "php{{ php_version }}-gd"
-- name: "PHP | Database driver {{ db_driver }}"
-  when: db_driver is defined
+- name: "PHP | Database driver {{ database.driver }}"
+  when: database.driver is defined
   apt:
-    name: "php{{ php_version }}-{{ db_driver }}"
+    name: "php{{ php_version }}-{{ database.driver }}"
 - name: PHP | Composer setup script
   copy:
     src: "../templates/composer-setup.sh"
