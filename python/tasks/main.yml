@@ -32,3 +32,5 @@
   command: make altinstall 
   args:
     chdir: "/tmp/Python-{{ python_version }}"
+- name: Python | Upgrade PIP
+  command: "python{{ python_version[0:-2] }} -m pip install -U pip"
