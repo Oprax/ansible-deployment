@@ -49,15 +49,15 @@
     when: python_version is defined
     include_role:
       name: python
-  # - name: ROLES | Nginx
-  #   include_role:
-  #     name: nginx
-  # - name: ROLES | NodeJS
-  #   include_role:
-  #     name: nodejs
-  # - name: Create GIT repo
-  #   command: "git init --bare {{ ansistrano_deploy_to }}.git"
-  #   args:
-  #     creates: "{{ ansistrano_deploy_to }}.git"
-  #   become: true
-  #   become_user: "{{ user }}"
+  - name: ROLES | Nginx
+    include_role:
+      name: nginx
+  - name: ROLES | NodeJS
+    include_role:
+      name: nodejs
+  - name: Create GIT repo
+    command: "git init --bare {{ ansistrano_deploy_to }}.git"
+    args:
+      creates: "{{ ansistrano_deploy_to }}.git"
+    become: true
+    become_user: "{{ user }}"
