@@ -1,4 +1,5 @@
 php_version: 7.2
+python_version: 3.7.1
 nodejs_version: 8
 npm_globals: []
 redirect_domain: test.example.org
