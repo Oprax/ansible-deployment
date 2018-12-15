@@ -21,6 +21,10 @@ laravel_schedule: false
 extra_cmd: []
 dot_env_extra: {}
 certs: false
+programs:
+  - name: list_directory
+    dir: "{{ ansistrano_deploy_to }}"
+    cmd: ls
 email:
   host: smtp.mailtrap.io
   port: 2525

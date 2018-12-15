@@ -1,0 +1,23 @@
+---
+- name: Supervisor | Install deps
+  apt:
+    update_cache: yes
+    name: 
+    - supervisor
+- name: Supervisor | Supervisor service is running
+  service:
+    name: supervisor
+    state: started
+    enabled: true
+- name: Supervisor | install tasks
+  template:
+    src: program.ini.j2
+    dest: "/etc/supervisor/conf.d/{{ item.name }}.conf"
+  with_items: "{{ programs }}"
+- name: Supervisor | read new entry
+  command: supervisorctl reread
+- name: Supervisor | update
+  command: supervisorctl update
+- name: Supervisor | update
+  command: "supervisorctl start {{ item.name }}:*"
+  with_items: "{{ programs }}"

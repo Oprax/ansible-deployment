@@ -1,0 +1,10 @@
+[program:{{ item.name }}]
+process_name=%(program_name)s_%(process_num)02d
+command={{ item.cmd }}
+directory={{ item.dir }}
+autostart=true
+autorestart=true
+user={{ user }}
+numprocs=4
+redirect_stderr=true
+stdout_logfile=/home/{{ user }}/{{ item.name }}.log
