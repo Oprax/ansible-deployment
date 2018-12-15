@@ -5,3 +5,4 @@
 vars.yml
 hosts
 hosts.ini
+.vagrant

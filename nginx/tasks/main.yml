@@ -24,6 +24,7 @@
     name: nginx
     state: restarted
 - import_tasks: letsencrypt.yml
+  when: certs
 - name: "NGINX | Vhost {{ domain }}"
   template:
     src: vhost.j2

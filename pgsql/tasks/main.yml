@@ -11,6 +11,7 @@
   service: name=postgresql state=started enabled=yes
 - name: "PgSql | Create {{ database.name }} database"
   become_user: postgres
+  become: yes
   postgresql_db:
     db: "{{ database.name }}"
     encoding: UTF-8
@@ -20,6 +21,7 @@
     state: present
 - name: "PgSql | Add {{ database.user }}"
   become_user: postgres
+  become: yes
   postgresql_user:
     name: "{{ database.user }}"
     password: "{{ database.pswd }}"
@@ -28,6 +30,7 @@
     expires: infinity
 - name: "PgSql | Setup priviliges for {{ database.user }}"
   become_user: postgres
+  become: yes
   postgresql_privs:
     role: "{{ database.user }}"
     db: "{{ database.name }}"
@@ -36,6 +39,7 @@
     state: present
 - name: PgSql | Ensure user does not have unnecessary privileges
   become_user: postgres
+  become: yes
   postgresql_user:
     name: "{{ database.user }}"
     role_attr_flags: NOSUPERUSER,NOCREATEDB
