@@ -2,8 +2,9 @@
 - name: Supervisor | Install deps
   apt:
     update_cache: yes
-    name: 
-    - supervisor
+    name: supervisor
+    state: present
+  become: true
 - name: Supervisor | Supervisor service is running
   service:
     name: supervisor
