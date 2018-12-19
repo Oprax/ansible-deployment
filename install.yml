@@ -55,6 +55,10 @@
   - name: ROLES | NodeJS
     include_role:
       name: nodejs
+  - name: ROLES | Supervisor
+    include_role:
+      name: supervisord
+    when: programs is defined
   - name: Create GIT repo
     command: "git init --bare {{ ansistrano_deploy_to }}.git"
     args:

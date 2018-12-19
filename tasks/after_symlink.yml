@@ -51,9 +51,6 @@
       state: present
       job: "cd {{ ansistrano_deploy_to }}/current && php artisan schedule:run >> /dev/null 2>&1"
   when: laravel_schedule is defined
-- name: LARAVEL | Horizon
-  include_role:
-    name: supervisord
-  when: programs is defined
-  become_user: "{{ remote_user }}"
-  become: true
+- name: Laravel | start
+  command: "supervisorctl start {{ item.name }}:*"
+  with_items: "{{ programs }}"

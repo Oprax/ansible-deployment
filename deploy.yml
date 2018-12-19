@@ -1,11 +1,9 @@
 ---
 - name: Deploy to server
   hosts: all
-  remote_user: "{{ remote_user }}"
+  remote_user: "{{ user }}"
   tasks:
   - include_vars:
       file: vars.yml
   - include_role:
       name: ansistrano.deploy
-    become_user: "{{ user }}"
-    become: true

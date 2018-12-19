@@ -4,32 +4,17 @@
     update_cache: yes
     name: supervisor
     state: present
-  become: true
-  become_user: "{{ remote_user }}"
 - name: Supervisor | Supervisor service is running
   service:
     name: supervisor
     state: started
     enabled: true
-  become: true
-  become_user: "{{ remote_user }}"
 - name: Supervisor | install tasks
   template:
     src: program.ini.j2
     dest: "/etc/supervisor/conf.d/{{ item.name }}.conf"
   with_items: "{{ programs }}"
-  become: true
-  become_user: "{{ remote_user }}"
 - name: Supervisor | read new entry
   command: supervisorctl reread
-  become: true
-  become_user: "{{ remote_user }}"
 - name: Supervisor | update
   command: supervisorctl update
-  become: true
-  become_user: "{{ remote_user }}"
-- name: Supervisor | update
-  command: "supervisorctl start {{ item.name }}:*"
-  become: true
-  become_user: "{{ remote_user }}"
-  with_items: "{{ programs }}"
