@@ -54,3 +54,5 @@
 - name: Laravel | start
   command: "supervisorctl start {{ item.name }}:*"
   with_items: "{{ programs }}"
+  remote_user: "{{ remote_user }}"
+  become: true
