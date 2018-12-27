@@ -47,7 +47,7 @@
       state: present
       job: "cd {{ ansistrano_deploy_to }}/current && php artisan schedule:run >> /dev/null 2>&1"
   when: laravel_schedule is defined
-- name: Laravel | start
+- name: Laravel | start supervisor
   command: "supervisorctl start {{ item.name }}:*"
   with_items: "{{ programs }}"
   remote_user: "{{ remote_user }}"

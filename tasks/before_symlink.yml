@@ -43,3 +43,17 @@
   shell: |
       find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
       find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
+- name: Laravel | status supervisor
+  command: "supervisorctl status {{ item.name }}:*"
+  with_items: "{{ programs }}"
+  remote_user: "{{ remote_user }}"
+  become: true
+  register: supervisor_status
+  when: programs is defined
+- name: Laravel | stop supervisor
+  command: php artisan horizon:terminate
+  when:
+   - supervisor_status is defined
+   - supervisor_status.results[0].stdout.find('RUNNING') != -1
+  args:
+    chdir: "{{ ansistrano_deploy_to }}/current"
