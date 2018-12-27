@@ -27,6 +27,8 @@
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
 - name: Laravel | remove cache
+  remote_user: "{{ remote_user }}"
+  become: true
   file:
     path: "{{ ansistrano_deploy_to }}/current/storage/framework/cache/data"
     state: absent
