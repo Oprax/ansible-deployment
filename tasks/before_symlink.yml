@@ -27,7 +27,15 @@
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
 - name: Laravel | remove cache
-  command: "rm -r {{ ansistrano_deploy_to }}/current/storage/framework/cache/data/*"
+  file:
+    path: "{{ ansistrano_deploy_to }}/current/storage/framework/cache/data"
+    state: absent
+- name: Laravel | restore cache
+  file:
+    path: "{{ ansistrano_deploy_to }}/current/storage/framework/cache/data"
+    owner: "{{ user }}"
+    group: www-data
+    state: directory
 - name: LARAVEL | Storage directory
   file:
     path: "{{ item }}"
