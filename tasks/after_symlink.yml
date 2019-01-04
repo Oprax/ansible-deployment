@@ -1,16 +1,7 @@
-- name: LARAVEL | NPM install
-  command: npm install
-  args:
-    chdir: "{{ ansistrano_release_path.stdout }}"
-- name: LARAVEL | build assets
-  command: npm run prod
-  args:
-    chdir: "{{ ansistrano_release_path.stdout }}"
-# END.YML
 - name: LARAVEL | Config cache
   shell: php artisan config:cache
   args:
-    chdir: "{{ ansistrano_release_path.stdout }}"
+    chdir: "{{ ansistrano_deploy_to }}/current"
 - name: LARAVEL | View clear
   shell: php artisan view:clear
   args:

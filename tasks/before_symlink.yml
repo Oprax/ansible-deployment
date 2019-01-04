@@ -55,6 +55,14 @@
   shell: |
       find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
       find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
+- name: LARAVEL | NPM install
+  command: npm install
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | build assets
+  command: npm run prod
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
 - name: Laravel | status supervisor
   command: "supervisorctl status {{ item.name }}:*"
   with_items: "{{ programs }}"
