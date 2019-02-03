@@ -53,6 +53,7 @@
     include_role:
       name: nginx
   - name: ROLES | NodeJS
+    when: nodejs_version is defined
     include_role:
       name: nodejs
   - name: ROLES | Supervisor

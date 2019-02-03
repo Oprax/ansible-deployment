@@ -1,0 +1,25 @@
+python_version: 3.7.2
+python_port: 8001
+redirect_domain: testing.oprax.net
+domain: testing.oprax.net
+app_name: testing
+ssh_public_key_file: "~/.ssh/id_rsa.pub"
+# ssh_private_key_file: "~/.ssh/id_rsa.pub"
+# Ansistrano
+ansistrano_deploy_to: "/home/{{ user }}/{{ domain }}"
+ansistrano_deploy_via: git
+ansistrano_git_repo: "{{ ansistrano_deploy_to }}.git"
+ansistrano_keep_releases: 3
+ansistrano_shared_paths: []
+ansistrano_shared_files: []
+# ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink_py.yml"
+ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/after_symlink_py.yml"
+ansistrano_allow_anonymous_stats: false
+certs: true
+programs:
+  - name: "{{ app_name }}"
+    dir: "{{ ansistrano_deploy_to }}/current"
+    cmd: "python{{ python_version[0:-2] }} -m pipenv run gunicorn -w 2 -b 127.0.0.1:{{ python_port }} main:app"
+# Database
+database:
+  driver: none # 'mysql' or 'pgsql'

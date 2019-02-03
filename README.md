@@ -7,7 +7,7 @@ You can test this configuration with a free server (only for 2 hours) using [dpl
 
 # 1. Setup
 
-Copy example files : `cp vars.example.yml vars.yml` and `cp hosts.example.ini hosts.ini`.
+Copy example files : `cp vars.php.yml vars.yml` (or `vars.python.yml`) and `cp hosts.example.ini hosts.ini`.
 
 On `hosts.ini` file put server's address with the new user's name and check information (like the domain) in `vars.yml`.
 You can generate SSH key and use `ssh_private_key_file` variable to define path of the private key.

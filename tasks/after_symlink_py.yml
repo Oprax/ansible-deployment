@@ -1,0 +1,9 @@
+- name: PYTHON | Pipenv install
+  command: "python{{ python_version[0:-2] }} -m pipenv install --deploy"
+  args:
+    chdir: "{{ ansistrano_deploy_to }}/current"
+- name: Laravel | start supervisor
+  command: "supervisorctl start {{ item.name }}:*"
+  with_items: "{{ programs }}"
+  remote_user: "{{ remote_user }}"
+  become: true

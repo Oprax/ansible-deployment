@@ -23,14 +23,17 @@
 - name: Python | Configure
   command: ./configure
   args:
+    creates: "/usr/local/bin/python{{ python_version[0:-2] }}"
     chdir: "/tmp/Python-{{ python_version }}"
 - name: Python | Build
   command: make
   args:
+    creates: "/usr/local/bin/python{{ python_version[0:-2] }}"
     chdir: "/tmp/Python-{{ python_version }}"
 - name: Python | Install
-  command: make altinstall 
+  command: make altinstall
   args:
+    creates: "/usr/local/bin/python{{ python_version[0:-2] }}"
     chdir: "/tmp/Python-{{ python_version }}"
 - name: Python | Upgrade PIP
-  command: "python{{ python_version[0:-2] }} -m pip install -U pip"
+  command: "python{{ python_version[0:-2] }} -m pip install -U pip pipenv"

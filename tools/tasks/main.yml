@@ -4,6 +4,7 @@
     name:
       - vim
       - git
+      - rsync
       - tree
       - htop
       - safe-rm
