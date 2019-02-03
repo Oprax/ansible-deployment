@@ -3,6 +3,7 @@
 .vault_pass
 .idea
 vars.yml
+vars.yml.bak
 hosts
 hosts.ini
 .vagrant
