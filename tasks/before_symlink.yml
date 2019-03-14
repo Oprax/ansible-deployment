@@ -41,7 +41,7 @@
 - name: LARAVEL | Storage directory
   file:
     path: "{{ item }}"
-    mode: 0774
+    mode: 0777
     state: directory
   with_items:
     - "{{ ansistrano_shared_path }}/storage/app/public"
@@ -51,10 +51,10 @@
     - "{{ ansistrano_shared_path }}/storage/framework/views"
     - "{{ ansistrano_shared_path }}/storage/logs"
 # https://stackoverflow.com/a/37266353/10324791
-- name: LARAVEL | Storage directory permissions
-  shell: |
-      find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
-      find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
+# - name: LARAVEL | Storage directory permissions
+#   shell: |
+#       find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
+#       find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
 - name: LARAVEL | NPM install
   command: npm install
   args:
