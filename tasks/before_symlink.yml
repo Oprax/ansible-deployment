@@ -55,6 +55,10 @@
 #   shell: |
 #       find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
 #       find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
+- name: LARAVEL | Dir & File permission {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+  shell: |
+    chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+    chmod -R ug+rwx {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
 - name: LARAVEL | NPM install
   command: npm install
   args:
