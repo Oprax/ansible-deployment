@@ -81,7 +81,3 @@
    - supervisor_status.results[0].stdout.find('RUNNING') != -1
   args:
     chdir: "{{ ansistrano_deploy_to }}/current"
-- name: LARAVEL | Config clear
-  shell: php artisan config:clear
-  args:
-    chdir: "{{ ansistrano_deploy_to }}/current"
