@@ -6,6 +6,14 @@
   shell: php artisan view:clear
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Cache clear
+  shell: php artisan cache:clear
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Config clear
+  shell: php artisan config:clear
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
 - name: LARAVEL | Public storage
   shell: php artisan storage:link
   args:
