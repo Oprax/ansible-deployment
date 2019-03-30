@@ -51,14 +51,14 @@
     - "{{ ansistrano_shared_path }}/storage/framework/views"
     - "{{ ansistrano_shared_path }}/storage/logs"
 # https://stackoverflow.com/a/37266353/10324791
-# - name: LARAVEL | Storage directory permissions
-#   shell: |
-#       find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
-#       find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
-- name: LARAVEL | Dir & File permission {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+- name: LARAVEL | Storage directory permissions
   shell: |
-    chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
-    chmod -R ug+rwx {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+      find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
+      find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
+# - name: LARAVEL | Dir & File permission {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+#   shell: |
+#     chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+#     chmod -R ug+rwx {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
 - name: LARAVEL | NPM install
   command: npm install
   args:
@@ -79,9 +79,5 @@
   when:
    - supervisor_status is defined
    - supervisor_status.results[0].stdout.find('RUNNING') != -1
-  args:
-    chdir: "{{ ansistrano_deploy_to }}/current"
-- name: LARAVEL | Config clear
-  shell: php artisan config:clear
   args:
     chdir: "{{ ansistrano_deploy_to }}/current"
