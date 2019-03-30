@@ -1,3 +1,11 @@
+- name: LARAVEL | Config clear
+  shell: php artisan config:clear
+  args:
+    chdir: "{{ ansistrano_deploy_to }}/current"
+- name: LARAVEL | Cache clear
+  shell: php artisan cache:clear
+  args:
+    chdir: "{{ ansistrano_deploy_to }}/current"
 - name: LARAVEL | Config cache
   shell: php artisan config:cache
   args:
