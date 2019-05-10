@@ -1,0 +1,5 @@
+- name: PYTHON | Copy conf
+  copy:
+    content: "{{ cfg | to_nice_json }}"
+    dest: "{{ ansistrano_shared_path }}/{{ cfg_file }}"
+  when: cfg_file is defined and cfg is defined
