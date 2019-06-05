@@ -3,3 +3,11 @@
     content: "{{ cfg | to_nice_json }}"
     dest: "{{ ansistrano_shared_path }}/{{ cfg_file }}"
   when: cfg_file is defined and cfg is defined
+- name: PYTHON | Create files
+  file:
+    path: "{{ ansistrano_shared_path }}/{{ item }}"
+    state: touch
+    owner: "{{ user }}"
+    mode: "0760"
+  with_items: files
+  when: files is defined and (files | length > 0)
