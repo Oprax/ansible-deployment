@@ -9,5 +9,5 @@
     state: touch
     owner: "{{ user }}"
     mode: "0760"
-  with_items: files
+  with_items: "{{ files }}"
   when: files is defined and (files | length > 0)
