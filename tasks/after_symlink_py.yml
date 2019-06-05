@@ -2,6 +2,11 @@
   command: "python{{ python_version[0:-2] }} -m pipenv install --deploy"
   args:
     chdir: "{{ ansistrano_deploy_to }}/current"
+- name: PYTHON | extra commands
+  command: "{{ item }}"
+  with_items: "{{ extra_cmd }}"
+  args:
+    chdir: "{{ ansistrano_deploy_to }}/current"
 - name: Python | start supervisor
   command: "supervisorctl start {{ item.name }}:*"
   with_items: "{{ programs }}"
