@@ -5,7 +5,7 @@
   when: cfg_file is defined and cfg is defined
 - name: PYTHON | Create files
   file:
-    path: "{{ ansistrano_release_path.stdout }}/{{ item }}"
+    path: "{{ ansistrano_shared_path }}/{{ item }}"
     state: touch
     owner: "{{ user }}"
     mode: "0760"
