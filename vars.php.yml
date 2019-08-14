@@ -1,4 +1,4 @@
-php_version: 7.2
+php_version: 7.3
 nodejs_version: 8
 npm_globals: []
 redirect_domain: test.example.org

@@ -25,6 +25,7 @@
       - "php{{ php_version }}-intl"
       - "php{{ php_version }}-curl"
       - "php{{ php_version }}-gd"
+      - "php{{ php_version }}-bcmath"
 - name: "PHP | Database driver {{ database.driver }}"
   when: database.driver is defined
   apt:
