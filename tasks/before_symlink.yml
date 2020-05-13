@@ -53,8 +53,8 @@
 # https://stackoverflow.com/a/37266353/10324791
 - name: LARAVEL | Storage directory permissions
   shell: |
-      find {{ ansistrano_deploy_to }} -type f -exec chmod 664 {} \;
-      find {{ ansistrano_deploy_to }} -type d -exec chmod 775 {} \;
+      find {{ ansistrano_deploy_to }} \( -type d -name "vendor" -o -type d -name "node_modules" \) -prune -o -type f -exec chmod 664 {} \;
+      find {{ ansistrano_deploy_to }} \( -type d -name "vendor" -o -type d -name "node_modules" \) -prune -o -type d -exec chmod 775 {} \;
 # - name: LARAVEL | Dir & File permission {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
 #   shell: |
 #     chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
